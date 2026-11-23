@@ -19,10 +19,11 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Gradle izinlerini ver ve APK derle
-        run: |
-          chmod +x ./gradlew
-          ./gradlew assembleDebug
+      - name: Gradle kur
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: APK derle
+        run: gradle assembleDebug
 
       - name: APK artifact yükle
         uses: actions/upload-artifact@v4
