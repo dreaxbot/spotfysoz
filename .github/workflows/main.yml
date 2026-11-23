@@ -1,0 +1,31 @@
+name: APK derle
+
+on:
+  push:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Depoyu çek
+        uses: actions/checkout@v4
+
+      - name: JDK 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Gradle izinlerini ver ve APK derle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
+
+      - name: APK artifact yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpotifySozler-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
